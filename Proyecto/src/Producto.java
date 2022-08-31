@@ -4,12 +4,18 @@ public class Producto {
 	private String categoria;
 	private String tamaño;
 	private String marca;
-  private int cantidad;
+  private int stock;
 	private int precio;
 	
-	public Producto() {
-		
-		
+	public Producto(String nombre, String categoria, String tamaño, String marca, int stock, int precio){
+    
+		this.nombre = nombre;
+    this.categoria = categoria;
+    this.tamaño = tamaño;
+    this.marca = marca;
+		this.stock = stock;
+    this.precio = precio;
+    
 	}
 	
 	public String getNombre() 
@@ -37,14 +43,14 @@ public class Producto {
 	
 	
 	
-	public int getCantidad() 
+	public int getStock() 
 	{
-		return cantidad;
+		return stock;
 		
 	}
-	public void setCantidad(int cantidad) 
+	public void setStock(int stock) 
 	{
-		this.cantidad = cantidad;
+		this.stock = stock;
 		
 	}
 	
