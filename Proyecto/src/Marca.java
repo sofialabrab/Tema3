@@ -1,4 +1,4 @@
-import java.io.*;
+ import java.io.*;
 import java.util.ArrayList;
 
 public class Marca {
@@ -46,15 +46,16 @@ public class Marca {
     this.cantProductos = cantProductos;
   }
 
+  public ArrayList<Producto> getStringList() {
+    return listaProductos;
+  }
+
+
   public void agregarProducto(Producto producto) {
 
     this.listaProductos.add(producto);
     this.cantProductos += 1;
 
-  }
-
-  public ArrayList<Producto> getStringList() {
-    return listaProductos;
   }
 
   // Muestra todas las marcas y sus productos
@@ -68,7 +69,6 @@ public class Marca {
       System.out.println("Precio: " + m.getPrecio());
       System.out.println("------------------------------");
     }
-    // return data;
   }
 
   // Muestra los productos de solo una marca
