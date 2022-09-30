@@ -1,22 +1,30 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.io.*;
 public class Producto {
 	
 	private String nombre;
 	private String categoria;
 	private String tamaño;
 	private String marca;
-  private int stock;
+	private int stock;
 	private int precio;
+	//private ArrayList<Marca> productos = new ArrayList<>();
 	
-	public Producto(String nombre, String categoria, String tamaño, String marca, int stock, int precio){
-    
-	this.nombre = nombre;
-    this.categoria = categoria;
-    this.tamaño = tamaño;
-    this.marca = marca;
+	public Producto(String nombre,String categoria,String tamaño,String marca, int stock, int precio)
+	{
+		this.nombre = nombre;
+		this.categoria= categoria;
+		this.tamaño = tamaño;
+		this.marca = marca;
 		this.stock = stock;
-    this.precio = precio;
-    
+		this.precio = precio;	
 	}
+	public Producto(){
+	    
+	}
+	
 	
 	public String getNombre() 
 	{
@@ -89,5 +97,6 @@ public class Producto {
 		this.precio = precio;
 		
 	}	
+	
 
 }
