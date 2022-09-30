@@ -25,7 +25,7 @@ public class Menu {
     System.out.println("2.- Mostrar productos");
     System.out.println("3.- Importar producto");
     System.out.println("4.-  Modificar producto");
-    System.out.println("5.- Buscar producto");
+    System.out.println("5.- Eliminar producto");
     System.out.println("Seleccione una opción");
     op = Integer.parseInt(lector.readLine());
 
@@ -51,8 +51,12 @@ public class Menu {
         }
         case 4:
         {
-        	Producto pp = new Producto();
-        	//pp.modificarProducto();
+        	//Producto pp = new Producto();
+        	inv.modificarProducto();
+        }
+        case 5:
+        {
+        	inv.eliminarProducto();
         }
 
       }

@@ -127,15 +127,110 @@ public class ManejoInventario {
 	  public Marca buscarMarca(String nombre)
 	  {
 		  boolean esta;
-		  //Marca mm = new Marca();
+		  Marca m = new Marca(nombre);
 		  
 		  esta = mapaMarca.containsKey(nombre);
 		  if(esta == true) 
 		  {
-			  Marca listaProductos = (Marca) mapaMarca.get(nombre);
-			  return listaProductos;
+			  m = mapaMarca.get(nombre);
+			  //Marca listaProductos = (Marca) mapaMarca.get(nombre);
+			  return m;
 		  }
+		  
 		  return null;
+		  
+	  }
+	  public Producto buscarProducto(String nombre, Marca mm)
+	  {
+		  Producto pp = mm.obtenerProducto(nombre);
+		  return pp;
+	  }
+	  public void modificarProducto()throws IOException
+	  {
+		  	BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  	System.out.println("Ingrese la marca de el producto a modificar");
+			String mar;
+			mar = lector.readLine();
+			Marca mm = buscarMarca(mar);
+			if(mm != null)
+			{
+				System.out.println("Ingrese el nombre de el producto a modificar");
+				String pr;
+				pr = lector.readLine();
+				Producto pp = buscarProducto(pr, mm);
+				if(pp != null)
+				{
+					System.out.println("¿Que desea modificar?");
+					System.out.println("1.- Nombre");
+					System.out.println("2.- Categoria");
+					System.out.println("3.- Tamaño");
+					System.out.println("4.- Precio");
+					System.out.println("5.- Stock");
+
+					
+					int modificar; 
+					modificar = Integer.parseInt(lector.readLine());
+					switch(modificar)
+					{
+						case 1:
+						{
+							System.out.println("Ingrese el nuevo Nombre: ");
+							pp.setNombre(lector.readLine());
+							return;
+						
+						}
+						case 2:
+						{
+							System.out.println("Ingrese la nueva Categoria: ");
+							pp.setCategoria(lector.readLine());
+							return;
+						
+						}
+						case 3:
+						{
+							System.out.println("Ingrese el nuevo Tamaño: ");
+							pp.setTamaño(lector.readLine());
+							return;
+						}
+						case 4:
+						{
+							System.out.println("Ingrese el nuevo Precio: ");
+							pp.setPrecio(Integer.parseInt(lector.readLine()));
+							return;
+						
+						}
+						case 5:
+						{
+							System.out.println("Ingrese el nuevo Stock: ");
+							pp.setStock(Integer.parseInt(lector.readLine()));
+							return;
+						}
+					}
+						
+				}
+			}
+	  }
+	  public void eliminarProducto()throws IOException
+	  {
+		  	BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  	System.out.println("Ingrese la marca de el producto a modificar");
+			String mar;
+			mar = lector.readLine();
+			Marca mm = buscarMarca(mar);
+			if(mm != null)
+			{
+				System.out.println("Ingrese el nombre de el producto a modificar");
+				String pr;
+				pr = lector.readLine();
+				Producto pp = buscarProducto(pr, mm);
+				if(pp != null)
+				{
+					System.out.print("Producto " + pp.getNombre());
+					System.out.println(" eliminado");
+					mm.eliminarProducto(pp);
+					
+				}
+			}	
 		  
 	  }
 		/*public static void AgregarProductoDoc(HashMap<String, Marca> mapaMarca, ArrayList<Producto> listaProductos, int ini) throws IOException {

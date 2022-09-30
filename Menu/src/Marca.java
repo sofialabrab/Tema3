@@ -7,7 +7,7 @@ public class Marca {
   private String nombreMarca;
   private int cantProductos;
   public ArrayList<Producto> listaProductos;
-  public ArrayList<Producto> todosProductos = new ArrayList();
+  //public ArrayList<Producto> todosProductos = new ArrayList();
 
   public Marca()
   {
@@ -55,7 +55,7 @@ public class Marca {
   public void agregarProducto(Producto producto) {
 
     this.listaProductos.add(producto);
-    this.todosProductos.add(producto);
+    //this.todosProductos.add(producto);
     this.cantProductos += 1;
 
   }
@@ -82,7 +82,7 @@ public class Marca {
       System.out.println(", Categoría: " + m.getCategoria());
     }
   }
-  public void modificarProducto()throws IOException
+ /* public void modificarProducto()throws IOException
 	{
 		//ArrayList<Marca> listaProductos = new ArrayList<>();
 		BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -165,14 +165,14 @@ public class Marca {
 		String mar;
 		String pr;
 		mar = lector.readLine();
-		listaProductos = inv.buscarMarca(mar);
-		if(listaProductos == null)
-		{
-			System.out.println("Esta marca no esta registrada");
-			return;
+		//listaProductos = inv.buscarMarca(mar);
+		//if(listaProductos == null)
+		//{
+			//System.out.println("Esta marca no esta registrada");
+			//return;
 			
-		}
-		System.out.println("Ingrese el nombre del nombre");
+	//	}
+		System.out.println("Ingrese el nombre del producto");
 		pr = lector.readLine();
 		for(int i = 0; i < listaProductos.size(); i++)
 		{
@@ -186,6 +186,25 @@ public class Marca {
 		}
 		System.out.println("Este producto no esta registrado");
 		return;
+	}*/
+	public Producto obtenerProducto(String nombre)
+	{
+		for(int i = 0; i < listaProductos.size(); i++)
+		{
+			Producto producto = (Producto)listaProductos.get(i);
+			
+			if(producto.getNombre().equals(nombre))
+			{
+				 return producto;
+			}
+		}
+		return null;
+	}
+	
+	public void eliminarProducto(Producto pp)
+	{
+		listaProductos.remove(pp);
+		
 	}
  
 
