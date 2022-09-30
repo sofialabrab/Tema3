@@ -201,10 +201,12 @@ public class Marca {
 		return null;
 	}
 	
+	
 	public void eliminarProducto(Producto pp)
 	{
-		listaProductos.remove(pp);
 		
+		listaProductos.remove(pp);
+			
 	}
  
 

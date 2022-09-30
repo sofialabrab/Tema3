@@ -213,21 +213,28 @@ public class ManejoInventario {
 	  public void eliminarProducto()throws IOException
 	  {
 		  	BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-		  	System.out.println("Ingrese la marca de el producto a modificar");
+		  	System.out.println("Ingrese la marca de el producto a eliminar");
 			String mar;
 			mar = lector.readLine();
 			Marca mm = buscarMarca(mar);
 			if(mm != null)
 			{
-				System.out.println("Ingrese el nombre de el producto a modificar");
+				System.out.println("Ingrese el nombre de el producto a eliminar");
 				String pr;
 				pr = lector.readLine();
 				Producto pp = buscarProducto(pr, mm);
 				if(pp != null)
 				{
-					System.out.print("Producto " + pp.getNombre());
-					System.out.println(" eliminado");
-					mm.eliminarProducto(pp);
+					if(mm.getCantProductos() == 1)
+					{
+						System.out.print("Producto " + pp.getNombre());
+						System.out.println(" eliminado");
+						mm.eliminarProducto(pp);
+						mapaMarca.remove(mm);
+						
+					}
+					else mm.eliminarProducto(pp);
+					
 					
 				}
 			}	
