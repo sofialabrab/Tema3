@@ -107,6 +107,17 @@ public class Marca {
 		listaProductos.remove(pp);
 			
 	}
+	public Producto exportar(int i)
+	{
+	    Producto m = (Producto)listaProductos.get(i);
+	    return m;
+
+	 }
+	public int sizeLista() 
+    {
+        return listaProductos.size();
+
+    }
  
 
 }

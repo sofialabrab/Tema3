@@ -1,0 +1,2 @@
+jabon liquido,aseo personal,200 ml,nivea,3,1200
+leche chocolate,lacteo,200 ml,colun,6,390

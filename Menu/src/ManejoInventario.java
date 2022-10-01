@@ -1,8 +1,13 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 
 public class ManejoInventario {
@@ -118,16 +123,23 @@ public class ManejoInventario {
 	  }
 
 	  // Mostrar por marca los productos
-	  public void Mostrar() throws NoregistroException, IOException {
+	  public void Mostrar() throws NoregistroException, IOException,FallaingresoException {
 		  
 	    boolean existe = false;
 	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.println("Opción 1. Mostrar productos de una Marca");
 	    System.out.println("Opción 2. Mostrar todos los productos");
 	    System.out.println("Ingrese número de su opción (1 o 2)");
-	    int opMostrar = Integer.parseInt(lector.readLine());
+	    String opMostrar = lector.readLine();
+	    boolean isNumeric = opMostrar.chars().allMatch( Character::isDigit );
+	    int opmostrar;
+	    if(isNumeric == true)
+	    {
+	    	opmostrar = Integer.parseInt(opMostrar);
+	    }
+	    else throw new  FallaingresoException();
 
-	    if (opMostrar == 1) 
+	    if (opmostrar == 1) 
 	    {
 	      System.out.println("Ingrese la marca de los productos que desea mostrar: ");
 	      String marcaElegida = lector.readLine();
@@ -146,11 +158,20 @@ public class ManejoInventario {
 	    } 
 	    else 
 	    {
-	      for (Marca m : mapaMarca.values()) {
-	       
-	        System.out.println("Marca: " + m.getNombreMarca());
-	        m.mostrarPor();
-	      }
+	    	
+	    	if(opmostrar == 2)
+	    	{
+	    		 for (Marca m : mapaMarca.values())
+	    		 {
+	    		    System.out.println("Marca: " + m.getNombreMarca());
+	    		    m.mostrarPor();
+	    		  }
+	    	}
+	    	if(opmostrar > 2 )
+	    	{
+	    		System.out.println("Numero ingresado no valido ");
+	    		
+	    	}
 	    }
 	  }
 	  public Marca buscarMarca(String nombre)
@@ -274,5 +295,134 @@ public class ManejoInventario {
 			}	
 		  
 	  }
+	  public void filtrar()throws IOException,FallaingresoException
+	  {
+		  BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  System.out.println("Ingrese el precio referencial ");
+		  int precio = Integer.parseInt(lector.readLine());
+		  System.out.println("¿Desea ver productos menor o mayor a este precio?");
+		  System.out.println("1.- Menor | 2.- Mayor");
+		  int op = Integer.parseInt(lector.readLine());
+		  if(op < 1 || op > 2) throw new FallaingresoException();
+		  
+	  
+		  for (Marca p : mapaMarca.values())
+		  {
+			  Producto po = new Producto();
+			  for(int i = 0 ; i < p.sizeLista(); i++)
+			  {
+				  po = p.exportar(i);
+				  if(op == 1)
+				  {
+					  if(po.getPrecio() <= precio)
+					  {
+						  System.out.print("Producto:" + po.getNombre());
+						  System.out.println(", precio:" + po.getPrecio());
+						  
+					  }  
+				  }
+				  else
+				  {
+					  if(po.getPrecio() >= precio)
+					  {
+						  System.out.print("Producto:" + po.getNombre());
+						  System.out.println(", precio:" + po.getPrecio());
+						  
+					  }  
+				  }
+				  
+			  }
+		  }
+
+		  
+		  
+		  
+		  
+	  }
+	  public void exportar()throws IOException
+      { 
+          FileWriter writer = new FileWriter("inventario.txt");
+
+          for (Marca p : mapaMarca.values()) {
+
+              System.out.println("Marca: " + p.getNombreMarca());
+
+
+              Producto po = new Producto();
+              for(int i = 0 ; i < p.sizeLista(); i++)
+              {
+                  System.out.println(p.sizeLista());
+                  po = p.exportar(i);
+                  String linea = po.getNombre() + "," + po.getCategoria() + "," + po.getTamaño()+ "," +po.getMarca() + "," + po.getStock() + "," + po.getPrecio() + "\n";
+                  System.out.println(linea);
+                  writer.write(linea);
+              }
+
+            }
+
+          writer.close();
+
+      }
+	  public void leerArchivo(String nombreArchivo)throws IOException
+		{
+	        File archivo = new File("inventario.txt");
+	        Marca guard = new Marca();
+	        
+	        
+	        try {
+	            BufferedReader entrada = new BufferedReader( new FileReader(archivo));
+	            var lectura = entrada.readLine();
+	            
+	            while(lectura != null){
+	            	Producto p = new Producto();
+	            	for(int i = 0 ; i < 6 ; i ++)
+	            	{
+	            		
+	            
+	            		ManejoDocumento mD = new ManejoDocumento();
+	            		if(i == 0)
+	            			p.setNombre(mD.get_csvField(lectura, i));
+	            		if(i == 1)
+	            			p.setCategoria(mD.get_csvField(lectura, i));
+	            		if(i == 2)
+	            			p.setTamaño(mD.get_csvField(lectura, i));
+	            		if(i == 3)
+	            			p.setMarca(mD.get_csvField(lectura, i));
+	            		if(i == 4)
+	            			p.setStock(Integer.parseInt(mD.get_csvField(lectura, i)));
+	            		if(i == 5)
+	            			p.setPrecio(Integer.parseInt(mD.get_csvField(lectura, i)));
+	            	
+	            		
+	            	}
+	            	
+	            	Marca varMarca = new Marca(p.getMarca());
+	            	
+	            	Marca marcBusc = mapaMarca.get(p.getMarca());
+	            	
+	            	if (marcBusc != null)
+	            	{
+	            		marcBusc.agregarProducto(p);
+	            	}
+	            	else
+	            	{
+	  	    	      varMarca.agregarProducto(p);
+	  	    	      mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+
+		  	    	}
+	      
+	            	
+	                //System.out.println("lectura = " + lectura);
+	                lectura = entrada.readLine();
+	                
+	            }
+	            entrada.close();
+	        } catch (FileNotFoundException ex) {
+	            ex.printStackTrace(System.out);
+	        } catch (IOException ex) {
+	            ex.printStackTrace(System.out);
+	        }
+	    }
+	  
 		
 }
