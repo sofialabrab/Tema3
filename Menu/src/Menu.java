@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Menu {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws FallaingresoException, NoregistroException, IOException {
 
     // ArrayList <Marca> listaMarca = new ArrayList<>();
    // ArrayList<Producto> productos = new ArrayList<>();
@@ -26,14 +26,22 @@ public class Menu {
     System.out.println("3.- Importar producto");
     System.out.println("4.-  Modificar producto");
     System.out.println("5.- Eliminar producto");
+    System.out.println("6.- Buscar producto");
     System.out.println("Seleccione una opción");
-    op = Integer.parseInt(lector.readLine());
+    try {
+    	op = Integer.parseInt(lector.readLine());
+    }
+    catch(Exception e)
+    {
+    	System.out.println("Dato ingresado no valido");
+    }
 
+   
 
     while (sig == 1) {
       switch (op) {
         case 1: {
-          if (op == 1)
+          
         	  inv.Agregar(ini);
           break;
 
@@ -52,11 +60,31 @@ public class Menu {
         case 4:
         {
         	//Producto pp = new Producto();
-        	inv.modificarProducto();
+        	try {
+        		inv.modificarProducto();	
+        	}
+        	catch(NoregistroException e)
+  		  	{
+        		System.out.println("Error:" + e.getMessage());
+        		
+  		  	}
+        	catch(FallaingresoException e2)
+        	{
+        		System.out.println("Error:" + e2.getMessage());
+        		
+        	}
+        	break;
+        	
         }
         case 5:
         {
-        	inv.eliminarProducto();
+        	try {
+        		inv.eliminarProducto();	
+        	}
+        	catch(NoregistroException e)
+  		  	{
+        		System.out.println("Error:" + e.getMessage());
+  		  	}
         }
 
       }
