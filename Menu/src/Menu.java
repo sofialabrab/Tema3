@@ -58,8 +58,49 @@ public class Menu {
 
         }
         case 2: {
-
-        	inv.Mostrar();
+        	System.out.println("Opciones mostrar:");
+        	System.out.println("1.- Alimentos");
+        	System.out.println("2.- Artículos de aseo");
+        	System.out.println("3.-Tecnología");
+        	System.out.println("4.- Mostrar general");
+        	int ope = Integer.parseInt(lector.readLine());
+        	switch(ope)
+        	{
+        	case 1:
+        	{
+        		System.out.println("entro");
+        		inv.mostrarAlimentos();
+        		System.out.println("salio");
+        		break;
+        		
+        	}
+        	case 2:
+        	{
+        		System.out.println("entro");
+        		inv.mostrarAseo();
+        		System.out.println("salio");
+        		break;
+        	}
+        	case 3:
+        	{
+        		System.out.println("entro");
+        		inv.mostrarTecnologia();
+        		System.out.println("salio");
+        		break;
+        	}
+        	case 4:
+        	{	System.out.println("entro");
+        		inv.Mostrar();
+    			System.out.println("salio");
+    			break;
+        		
+        	}
+        		
+        		
+        	}
+        	
+        	
+        
           break;
         }
         case 3: {

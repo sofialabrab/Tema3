@@ -13,6 +13,9 @@ import java.util.HashMap;
 public class ManejoInventario {
 	 
 	HashMap<String, Marca> mapaMarca = new HashMap<>();
+	ArrayList<Alimentos> listaAlimentos = new ArrayList<>();
+	ArrayList<Aseo> listaAseo = new ArrayList<>();
+	ArrayList<Tecnologia> listaTecnologia = new ArrayList<>();
 	public void ManejoInventario()
 	{
 		
@@ -27,14 +30,19 @@ public class ManejoInventario {
 	    if(ini == 0)
 	    {
 	    	//Se añaden datos iniciales
-	    	Producto p1 = new Producto("leche chocolate", "lacteo", "200 ml", "colun", 6, 390);
+	    	Producto p1 = new Producto("leche chocolate", "alimento", "200 ml", "colun", 6, 390);
+	    	Alimentos aa = new Alimentos("leche chocolate", "alimento", "200 ml", "colun", 6, 390,"10/09/2022", "10/09/2023");
 	    	Marca varMarca = new Marca("colun");
 	    	varMarca.agregarProducto(p1);
 	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+	    	listaAlimentos.add(aa);
 	    	
-	    	Producto p2 = new Producto("jabon liquido", "aseo personal", "200 ml", "nivea", 3, 1200);
+	    	Producto p2 = new Producto("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200);
+	    	Aseo a = new Aseo("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200,"no toxico");
+	    	//((Aseo) p2).setToxicidad("NO TOXICO");
 	    	varMarca = new Marca("nivea");
 	    	varMarca.agregarProducto(p2);
+	    	listaAseo.add(a);
 	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
 	    }
 	    else
@@ -87,7 +95,7 @@ public class ManejoInventario {
 	       IOException {
 	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-	    
+	    //Paciente tmpPatient = new Paciente(name, rut, age, gravedad, pathology, room);
 	    // Guarda los atributos del producto
 	    System.out.println("Ingrese el nombre del producto: ");
 	    p.setNombre(lector.readLine());
@@ -115,11 +123,43 @@ public class ManejoInventario {
 	    	int newstock = Integer.parseInt(precio);
 	    	p.setStock(newstock);
 	    }
-	  
-	  
-	    	
 	    
-
+	    if(p.getCategoria().equals("alimento"))
+	    {
+	    	System.out.println("Ingrese la fecha de elaboración:");
+		    String fechaEla = lector.readLine();
+		    System.out.println("Ingrese la fecha de vencimiento:");
+		    String fechaVen = lector.readLine();
+	    	Alimentos aa = new Alimentos(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),fechaEla, fechaVen);
+		    listaAlimentos.add(aa);
+	    }
+	    if(p.getCategoria().equals("aseo"))
+	    {
+	    	System.out.println("Ingrese toxicidad:");
+		    String toxi = lector.readLine();
+	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
+		    listaAseo.add(aa);
+	    }
+	    if(p.getCategoria().equals("aseo"))
+	    {
+	    	System.out.println("Ingrese toxicidad:");
+		    String toxi = lector.readLine();
+	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
+		    listaAseo.add(aa);
+	    }
+	    if(p.getCategoria().equals("tecnologia"))
+	    {
+	    	System.out.println("(Dimensiones) Ingrese el alto:");
+	    	int alto = Integer.parseInt(lector.readLine());
+	    	System.out.println("(Dimensiones) Ingrese el ancho:");
+	    	int ancho = Integer.parseInt(lector.readLine());
+	    	System.out.println("Ingrese generacion:");
+	    	String gen = lector.readLine();
+	    
+	    	Tecnologia aa = new Tecnologia(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),alto,ancho,gen);
+		    listaTecnologia.add(aa);
+	    }
+	  
 	  }
 
 	  // Mostrar por marca los productos
@@ -339,22 +379,39 @@ public class ManejoInventario {
 		  
 		  
 	  }
+	  public void reporte ()throws IOException 
+	  { 
+		  FileWriter writer = new FileWriter("reporte.txt");
+		  writer.write("Productos de cada marca" + "\n" + "\n");
+		  for (Marca p : mapaMarca.values()) {
+
+
+              writer.write(p.getNombreMarca()+ ": "  + "\n");
+              writer.write("Cantidad de productos: "+ p.sizeLista() + "\n");
+              Producto po = new Producto();
+              
+              for(int i = 0 ; i < p.sizeLista(); i++)
+              {
+                  po = p.exportar(i);
+                  String linea = i + 1 + "." + po.getNombre() +"\n";
+                  writer.write(linea);
+              }
+              writer.write("----------------------------" + "\n");
+		  }
+		  writer.close();
+		  
+	  }
 	  public void exportar()throws IOException
       { 
           FileWriter writer = new FileWriter("inventario.txt");
 
           for (Marca p : mapaMarca.values()) {
-
-              System.out.println("Marca: " + p.getNombreMarca());
-
-
               Producto po = new Producto();
               for(int i = 0 ; i < p.sizeLista(); i++)
               {
-                  System.out.println(p.sizeLista());
+
                   po = p.exportar(i);
                   String linea = po.getNombre() + "," + po.getCategoria() + "," + po.getTamaño()+ "," +po.getMarca() + "," + po.getStock() + "," + po.getPrecio() + "\n";
-                  System.out.println(linea);
                   writer.write(linea);
               }
 
@@ -423,6 +480,56 @@ public class ManejoInventario {
 	            ex.printStackTrace(System.out);
 	        }
 	    }
+	  public void mostrarAlimentos()throws IOException
+	  {
+		  System.out.println("entro metodo");
+		  for(int i = 0; i < listaAlimentos.size(); i++)
+		  {
+			  System.out.println("entro for ");
+			  Alimentos aa = listaAlimentos.get(i);
+			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.print(", Fecha de elaboracion:" +  aa.getFechaElaboracion());
+			  System.out.println(", Fecha de vencimiento:" +  aa.getFechaVencimiento());
+			  
+			  
+		  }
+		  System.out.println("salio for ");
+	  }
+	  public void mostrarAseo()throws IOException
+	  {
+		  System.out.println("entro metodo");
+		  for(int i = 0; i < listaAseo.size(); i++)
+		  {
+			  System.out.println("entro for ");
+			  Aseo aa = listaAseo.get(i);
+			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.println(", Toxicidad:" +  aa.getToxicidad());
+			    
+			  
+		  }
+		  System.out.println("salio for ");
+	  }
+	  public void mostrarTecnologia()throws IOException
+	  {
+		  System.out.println("entro metodo");
+		  for(int i = 0; i < listaTecnologia.size(); i++)
+		  {
+			  System.out.println("entro for ");
+			  Tecnologia aa = listaTecnologia.get(i);
+			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.println(", DIMENSIONES:");
+			  System.out.print("alto:" +  aa.getAlto());
+			  System.out.println(", ancho:" +  aa.getAncho());
+			  System.out.println("Generacion:" + aa.getGeneracion());
+			  
+ 
+			  
+		  }
+		  System.out.println("salio for ");
+	  }
 	  
 		
 }
