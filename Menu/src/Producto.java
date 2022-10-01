@@ -87,9 +87,9 @@ public class Producto {
 		this.marca = marca;
 		
 	}
-	public String getPrecio() 
+	public int getPrecio() 
 	{
-		return nombre;
+		return precio;
 		
 	}
 	public void setPrecio(int precio) 

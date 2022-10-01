@@ -233,7 +233,7 @@ public class ManejoInventario {
 						mapaMarca.remove(mm);
 						
 					}
-					else mm.eliminarProducto(pp);
+					else mm.eliminarProducto(pp);;
 					
 					
 				}

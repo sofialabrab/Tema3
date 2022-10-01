@@ -80,6 +80,8 @@ public class Marca {
     {
       System.out.print("Nombre Producto: " + m.getNombre());
       System.out.println(", Categoría: " + m.getCategoria());
+      System.out.println(", Precio: " + m.getPrecio());
+      
     }
   }
  /* public void modificarProducto()throws IOException
