@@ -28,7 +28,8 @@ public class Menu {
     System.out.println("4.- Eliminar producto");
     System.out.println("5.- Buscar producto");
     System.out.println("6.- Filtrar precio");
-    System.out.println("7.- Cerrar");
+    System.out.println("7.- Reporte");
+    System.out.println("8.- Cerrar");
     
     System.out.println("Seleccione una opción");
     /*try {
@@ -108,6 +109,12 @@ public class Menu {
         	
         }  
         case 7:
+        {
+        	inv.reporte();
+        	break;
+        	
+        }
+        case 8:
         {
         	System.out.println("Programa finalizado" );
         	return;

@@ -339,22 +339,39 @@ public class ManejoInventario {
 		  
 		  
 	  }
+	  public void reporte ()throws IOException 
+	  { 
+		  FileWriter writer = new FileWriter("reporte.txt");
+		  writer.write("Productos de cada marca" + "\n" + "\n");
+		  for (Marca p : mapaMarca.values()) {
+
+
+              writer.write(p.getNombreMarca()+ ": "  + "\n");
+              writer.write("Cantidad de productos: "+ p.sizeLista() + "\n");
+              Producto po = new Producto();
+              
+              for(int i = 0 ; i < p.sizeLista(); i++)
+              {
+                  po = p.exportar(i);
+                  String linea = i + 1 + "." + po.getNombre() +"\n";
+                  writer.write(linea);
+              }
+              writer.write("----------------------------" + "\n");
+		  }
+		  writer.close();
+		  
+	  }
 	  public void exportar()throws IOException
       { 
           FileWriter writer = new FileWriter("inventario.txt");
 
           for (Marca p : mapaMarca.values()) {
-
-              System.out.println("Marca: " + p.getNombreMarca());
-
-
               Producto po = new Producto();
               for(int i = 0 ; i < p.sizeLista(); i++)
               {
-                  System.out.println(p.sizeLista());
+
                   po = p.exportar(i);
                   String linea = po.getNombre() + "," + po.getCategoria() + "," + po.getTamaño()+ "," +po.getMarca() + "," + po.getStock() + "," + po.getPrecio() + "\n";
-                  System.out.println(linea);
                   writer.write(linea);
               }
 
