@@ -27,12 +27,16 @@ public class ManejoInventario {
 	    if(ini == 0)
 	    {
 	    	//Se añaden datos iniciales
-	    	Producto p1 = new Producto("leche chocolate", "lacteo", "200 ml", "colun", 6, 390);
+	    	Producto p1 = new Producto("leche chocolate", "alimento", "200 ml", "colun", 6, 390);
+	    	((Alimentos) p1).setFechaElaboracion("12/12/2019");
+	    	//((Alimentos) p1).setFechaVencimiento("12/11/2022");
+	    	
 	    	Marca varMarca = new Marca("colun");
 	    	varMarca.agregarProducto(p1);
 	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
 	    	
-	    	Producto p2 = new Producto("jabon liquido", "aseo personal", "200 ml", "nivea", 3, 1200);
+	    	Producto p2 = new Producto("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200);
+	    	((Aseo) p2).setToxicidad("NO TOXICO");
 	    	varMarca = new Marca("nivea");
 	    	varMarca.agregarProducto(p2);
 	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
@@ -58,6 +62,35 @@ public class ManejoInventario {
 	    	      // agregar productos
 		    	    try {
 		    	      Agregar(p);
+		    	      if (p.getCategoria().equals("alimento"))
+		    	    	{
+		    	    		System.out.println("Ingrese fecha de elaboración");
+		    	    		String fechaElb = lector.readLine();
+		    	    		((Alimentos) p).setFechaElaboracion(fechaElb);
+		    	    		System.out.println("Ingrese fecha de vencimiento");
+		    	    		String fechaVen = lector.readLine();
+		    	    		((Alimentos) p).setFechaElaboracion(fechaVen);
+		    	    	}
+		    	      else if (p.getCategoria().equals("aseo"))
+		    	    	{
+		    	    		System.out.println("Ingrese si su producto se considera toxico o no (NO TOXICO / TOXICO");
+		    	    		String varToxicidad = lector.readLine();
+		    	    		((Aseo) p).setToxicidad(varToxicidad);
+
+		    	    	}
+		    	      else 
+		    	    	  if (p.getCategoria().equals("tecnologia"))
+		    	    	{
+		    	    		System.out.println("Ingrese generacion (ej: 2019)");
+		    	    		int varGeneracion = Integer.parseInt(lector.readLine());
+		    	    		((Tecnologia) p).setGeneracion(varGeneracion);
+		    	    		System.out.println("Ingrese alto del producto (ej: 12 cm)");
+		    	    		int varAlto = Integer.parseInt(lector.readLine());
+		    	    		((Tecnologia) p).setAlto(varAlto);
+		    	    		System.out.println("Ingrese ancho del producto (ej: 12 cm)");
+		    	    		int varAncho = Integer.parseInt(lector.readLine());
+		    	    		((Tecnologia) p).setAncho(varAncho);
+		    	    	}
 		    	      marcBusc.agregarProducto(p);
 		    	    }catch(FallaingresoException e)
 		    	    {
