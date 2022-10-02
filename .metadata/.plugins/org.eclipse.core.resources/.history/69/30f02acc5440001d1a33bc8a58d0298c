@@ -1,0 +1,175 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.io.*;
+public class Producto {
+	
+	private String nombre;
+	private String categoria;
+	private String tamaño;
+	private String marca;
+	private int stock;
+	private int precio;
+	//private ArrayList<Marca> productos = new ArrayList<>();
+	
+	public Producto(String nombre,String categoria,String tamaño,String marca, int stock, int precio)
+	{
+		this.nombre = nombre;
+		this.categoria= categoria;
+		this.tamaño = tamaño;
+		this.marca = marca;
+		this.stock = stock;
+		this.precio = precio;	
+	}
+	public Producto(){
+	    
+	}
+	
+	
+	public String getNombre() 
+	{
+		return nombre;
+		
+	}
+	public void setNombre(String nombre) 
+	{
+		this.nombre = nombre;
+		
+	}	
+	
+	public void intento()
+	{
+		
+	}
+	
+	
+	public String getCategoria() 
+	{
+		return categoria;
+		
+	}
+	public void setCategoria(String categoria) 
+	{
+		this.categoria = categoria;
+		
+	}
+	
+	public int getStock() 
+	{
+		return stock;
+		
+	}
+	public void setStock(int stock) 
+	{
+		this.stock = stock;
+		
+	}
+	
+	public String getTamaño() 
+	{
+		return tamaño;
+		
+	}
+	public void setTamaño(String tamaño) 
+	{
+		this.tamaño = tamaño;
+		
+	}
+	
+	
+	public String getMarca() 
+	{
+		return marca;
+		
+	}
+	public void setMarca(String marca) 
+	{
+		this.marca = marca;
+		
+	}
+	public String getPrecio() 
+	{
+		return nombre;
+		
+	}
+	public void setPrecio(int precio) 
+	{
+		this.precio = precio;
+		
+	}	
+	public void modificarProducto()throws IOException
+	{
+		ArrayList<Marca> listaProductos = new ArrayList<>();
+		System.out.println("Ingrese la marca de el producto a modificar");
+		Marca marca = new Marca();
+		ManejoInventario inv = new ManejoInventario();
+		String mar;
+		String pr;
+		
+		BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		mar = lector.readLine();
+		listaProductos = inv.buscarMarca(mar);
+		if(listaProductos == null)
+		{
+			System.out.println("Esta marca no esta registrada");
+			return;
+			
+		}
+		System.out.println("Ingrese el nombre del producto");
+		pr = lector.readLine();
+		for( int i = 0; i < listaProductos.size(); i++)
+		{
+			Producto producto = (Producto)listaProductos.get(i);
+			
+			if(producto.getNombre().equals(pr))
+			{
+				System.out.println("¿Que desea modificar?");
+				System.out.println("1.- Nombre");
+				System.out.println("2.- Categoria");
+				System.out.println("3.- Tamaño");
+				System.out.println("4.- Precio");
+				System.out.println("5.- Stock");
+
+				
+				int modificar; 
+				modificar = Integer.parseInt(lector.readLine());
+				switch(modificar)
+				{
+				case 1:
+				{
+					producto.setNombre(lector.readLine());
+					return;
+				
+				}
+				case 2:
+				{
+					producto.setCategoria(lector.readLine());
+					return;
+				
+				}
+				case 3:
+				{
+					producto.setTamaño(lector.readLine());
+					return;
+				}
+				case 4:
+				{
+					producto.setPrecio(Integer.parseInt(lector.readLine()));
+					return;
+				
+				}
+					
+					
+				
+				
+			}
+			
+			System.out.println("Este producto no esta registrado");
+			return;
+		}
+			
+		
+		
+	}
+
+}

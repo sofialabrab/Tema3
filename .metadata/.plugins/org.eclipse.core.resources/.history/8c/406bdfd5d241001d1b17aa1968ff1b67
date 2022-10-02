@@ -1,0 +1,35 @@
+public  class  Alimentos  extiende  Producto {
+	
+	private  String  fechaElaboracion ;
+	 cadena  privada fecha Vencimiento ;
+	
+	
+	 alimentos públicos ()
+	{
+		súper ( "N/A" , "N/A" , "N/A" , "N/A" , 0 , 0 );
+		fechaElaboracion = "" ;
+		fechaElaboracion = "" ;
+	}
+	public  String  getFechaElaboracion ()
+	{
+		volver  fechaElaboracion ;
+		
+	}
+	public  void  setFechaElaboracion ( String  fechaElaboracion )
+	{
+		esto _ fechaElaboracion = fechaElaboracion ;
+		
+	}	
+
+	public  String  getFechaVencimiento ()
+	{
+		volver  fecha Vencimiento ;
+		
+	}
+	public  void  setFechaVencimiento ( String  fechaVencimiento )
+	{
+		esto _ fechaVencimiento = fechaVencimiento ;
+		
+	}	
+
+}

@@ -9,9 +9,9 @@ nivea:
 Cantidad de productos: 1
 1.jabon liquido
 ----------------------------
-ajdja: 
+iphone: 
 Cantidad de productos: 1
-1.ajdja
+1.iphone 13
 ----------------------------
 colun: 
 Cantidad de productos: 1

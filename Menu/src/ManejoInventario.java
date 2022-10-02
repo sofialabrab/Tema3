@@ -39,7 +39,6 @@ public class ManejoInventario {
 	    	
 	    	Producto p2 = new Producto("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200);
 	    	Aseo a = new Aseo("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200,"no toxico");
-	    	//((Aseo) p2).setToxicidad("NO TOXICO");
 	    	varMarca = new Marca("nivea");
 	    	varMarca.agregarProducto(p2);
 	    	listaAseo.add(a);
@@ -87,18 +86,18 @@ public class ManejoInventario {
 
 	    	    }
 	    }
-
-	   
+   
 	  }
 
 	  public void Agregar(Producto p) throws FallaingresoException,
 	       IOException {
 	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-	    //Paciente tmpPatient = new Paciente(name, rut, age, gravedad, pathology, room);
 	    // Guarda los atributos del producto
 	    System.out.println("Ingrese el nombre del producto: ");
 	    p.setNombre(lector.readLine());
+	    System.out.println("CATEGORIAS: alimento, tecnologia, aseo");
+	    System.out.println("Porfavor, escriba la categoria en minuscula y como es mostrado anteriormente, ej: alimento");
 	    System.out.println("Ingrese la categoría del producto: ");
 	    p.setCategoria(lector.readLine());
 	    System.out.println("Ingrese la marca del producto: ");
@@ -130,21 +129,14 @@ public class ManejoInventario {
 		    String fechaEla = lector.readLine();
 		    System.out.println("Ingrese la fecha de vencimiento:");
 		    String fechaVen = lector.readLine();
-	    	Alimentos aa = new Alimentos(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),fechaEla, fechaVen);
+	    	Alimentos aa = new Alimentos(p.getNombre(), p.getCategoria(), p.getTamaño(),  p.getMarca(),p.getStock(),p.getPrecio(),fechaEla, fechaVen);
 		    listaAlimentos.add(aa);
 	    }
 	    if(p.getCategoria().equals("aseo"))
 	    {
 	    	System.out.println("Ingrese toxicidad:");
 		    String toxi = lector.readLine();
-	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
-		    listaAseo.add(aa);
-	    }
-	    if(p.getCategoria().equals("aseo"))
-	    {
-	    	System.out.println("Ingrese toxicidad:");
-		    String toxi = lector.readLine();
-	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
+	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(),  p.getTamaño(), p.getMarca(),p.getStock(),p.getPrecio(),toxi);
 		    listaAseo.add(aa);
 	    }
 	    if(p.getCategoria().equals("tecnologia"))
@@ -156,7 +148,7 @@ public class ManejoInventario {
 	    	System.out.println("Ingrese generacion:");
 	    	String gen = lector.readLine();
 	    
-	    	Tecnologia aa = new Tecnologia(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),alto,ancho,gen);
+	    	Tecnologia aa = new Tecnologia(p.getNombre(), p.getCategoria(),  p.getTamaño(), p.getMarca(),p.getStock(),p.getPrecio(),alto,ancho,gen);
 		    listaTecnologia.add(aa);
 	    }
 	  
@@ -189,8 +181,6 @@ public class ManejoInventario {
 	      if (mapaMarca.containsKey(marcaElegida) == true) 
 	      {   
 	        m = mapaMarca.get(marcaElegida);
-	        //listaMarcaElegida = m.getStringList();
-	       // m.mostrarPor(listaMarcaElegida);
 	        m.mostrarPor(listaMarcaElegida);
 	      } 
 	      else throw new NoregistroException();
@@ -253,10 +243,6 @@ public class ManejoInventario {
 				else
 				{
 					int modificar; 
-					
-					//System.out.println("Ingrese la categoría del producto:");
-					//String cat = lector.readLine();
-					
 					System.out.println("¿Que desea modificar?");
 					System.out.println("1.- Nombre");
 					System.out.println("2.- Categoria");
@@ -332,8 +318,6 @@ public class ManejoInventario {
 					}
 
 					modificar = Integer.parseInt(lector.readLine());
-					//int modificar; 
-					//modificar = Integer.parseInt(lector.readLine());
 					if(modificar < 1 || modificar > 8) throw new FallaingresoException();
 					switch(modificar)
 					{
@@ -444,12 +428,7 @@ public class ManejoInventario {
 				  }
 				  
 			  }
-		  }
-
-		  
-		  
-		  
-		  
+		  }  
 	  }
 	  public void reporte ()throws IOException 
 	  { 
@@ -539,9 +518,6 @@ public class ManejoInventario {
 	  	    	      mapaMarca.put(varMarca.getNombreMarca(), varMarca);
 
 		  	    	}
-	      
-	            	
-	                //System.out.println("lectura = " + lectura);
 	                lectura = entrada.readLine();
 	                
 	            }
@@ -554,10 +530,8 @@ public class ManejoInventario {
 	    }
 	  public void mostrarAlimentos()throws IOException
 	  {
-		  System.out.println("entro metodo");
 		  for(int i = 0; i < listaAlimentos.size(); i++)
 		  {
-			  System.out.println("entro for ");
 			  Alimentos aa = listaAlimentos.get(i);
 			  System.out.print("Nombre alimento:" +  aa.getNombre());
 			  System.out.print(", Marca:" +  aa.getMarca());
@@ -566,31 +540,29 @@ public class ManejoInventario {
 			  
 			  
 		  }
-		  System.out.println("salio for ");
+		
 	  }
 	  public void mostrarAseo()throws IOException
 	  {
-		  System.out.println("entro metodo");
+		 
 		  for(int i = 0; i < listaAseo.size(); i++)
 		  {
-			  System.out.println("entro for ");
 			  Aseo aa = listaAseo.get(i);
-			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print("Nombre artículo de aseo:" +  aa.getNombre());
 			  System.out.print(", Marca:" +  aa.getMarca());
 			  System.out.println(", Toxicidad:" +  aa.getToxicidad());
 			    
 			  
 		  }
-		  System.out.println("salio for ");
+		 
 	  }
 	  public void mostrarTecnologia()throws IOException
 	  {
-		  System.out.println("entro metodo");
+		 
 		  for(int i = 0; i < listaTecnologia.size(); i++)
 		  {
-			  System.out.println("entro for ");
 			  Tecnologia aa = listaTecnologia.get(i);
-			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print("Nombre producto tecnologico:" +  aa.getNombre());
 			  System.out.print(", Marca:" +  aa.getMarca());
 			  System.out.println(", DIMENSIONES:");
 			  System.out.print("alto:" +  aa.getAlto());
@@ -598,7 +570,28 @@ public class ManejoInventario {
 			  System.out.println("Generacion:" + aa.getGeneracion());
 			  
 		  }
-		  System.out.println("salio for ");
+	  }
+	  public void buscarProducto()throws IOException,NoregistroException
+	  {
+		  
+		  BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  System.out.println("Ingrese la marca del producto");
+		  String marca = lector.readLine();
+		  Marca mm = buscarMarca(marca);
+		  if(mm == null)throw new  NoregistroException();
+		  System.out.println("Ingrese el nombre del producto");
+		  String nombre = lector.readLine();
+		  Producto pp = mm.obtenerProducto(nombre);
+		  if(pp == null)  throw new  NoregistroException();
+		  else
+		  {
+			  System.out.println("Nombre:" + pp.getNombre());
+			  System.out.println("Categoria:" + pp.getCategoria());
+			  System.out.println("Precio:" + pp.getPrecio());
+			  System.out.println("Stock:" + pp.getStock());
+			  
+		  }
+		  	 
 	  }
 	  
 		
