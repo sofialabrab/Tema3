@@ -1,0 +1,9 @@
+
+public class fallaIngresoException extends Exception {
+	public fallaIngresoException()
+	{
+		super("El dato ingresado no es válido");
+	}
+	
+	
+}

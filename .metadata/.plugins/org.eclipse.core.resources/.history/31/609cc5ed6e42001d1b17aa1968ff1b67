@@ -1,0 +1,610 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+
+public class ManejoInventario {
+	 
+	HashMap<String, Marca> mapaMarca = new HashMap<>();
+	ArrayList<Alimentos> listaAlimentos = new ArrayList<>();
+	ArrayList<Aseo> listaAseo = new ArrayList<>();
+	ArrayList<Tecnologia> listaTecnologia = new ArrayList<>();
+	public void ManejoInventario()
+	{
+		
+	}
+	
+	public void Agregar(int ini) throws IOException {
+	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+	    
+	    String esMarca;
+	    boolean flag = false;
+
+	    if(ini == 0)
+	    {
+	    	//Se añaden datos iniciales
+	    	Producto p1 = new Producto("leche chocolate", "alimento", "200 ml", "colun", 6, 390);
+	    	Alimentos aa = new Alimentos("leche chocolate", "alimento", "200 ml", "colun", 6, 390,"10/09/2022", "10/09/2023");
+	    	Marca varMarca = new Marca("colun");
+	    	varMarca.agregarProducto(p1);
+	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+	    	listaAlimentos.add(aa);
+	    	
+	    	Producto p2 = new Producto("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200);
+	    	Aseo a = new Aseo("jabon liquido", "aseo", "200 ml", "nivea", 3, 1200,"no toxico");
+	    	varMarca = new Marca("nivea");
+	    	varMarca.agregarProducto(p2);
+	    	listaAseo.add(a);
+	    	mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+	    }
+	    else
+	    {
+	    	//Se añaden productos manuales
+	    	 	System.out.println("¿De que marca es su producto?");
+	    	    System.out.println("Por favor escribalo en minúscula");
+	    	    esMarca = lector.readLine();
+	    	    Marca varMarca = new Marca(esMarca);
+
+
+	    	    // Buscamos si la marca esta en el mapa
+	    	    Marca marcBusc = mapaMarca.get(esMarca);
+	    	    
+	    	    // Inicializar variables productos
+	    	    Producto p = new Producto("", "", "", "", 0, 0);
+	    	    
+	    
+	    	    if(marcBusc != null)
+	    	    {
+	    	      // agregar productos
+		    	    try {
+		    	      Agregar(p);
+		    	      marcBusc.agregarProducto(p);
+		    	    }catch(FallaingresoException e)
+		    	    {
+		    	    	System.out.println("Error :" + e.getMessage());
+		    	    }
+	    	    }
+	    	    // Si la marca leida no se encontraba dentro del mapa, se agrega p a la varib
+	    	    else {
+	    	      // agregar productos
+	    	     
+	    	       try {
+		    	      Agregar(p);
+		    	      varMarca.agregarProducto(p);
+		    	      mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+		    	    }catch(FallaingresoException e)
+		    	    {
+		    	    	System.out.println("Error :" + e.getMessage());
+		    	    }
+
+	    	    }
+	    }
+
+	   
+	  }
+
+	  public void Agregar(Producto p) throws FallaingresoException,
+	       IOException {
+	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+	    // Guarda los atributos del producto
+	    System.out.println("Ingrese el nombre del producto: ");
+	    p.setNombre(lector.readLine());
+	    System.out.println("Ingrese la categoría del producto: ");
+	    p.setCategoria(lector.readLine());
+	    System.out.println("Ingrese la marca del producto: ");
+	    p.setMarca(lector.readLine());
+	    System.out.println("Ingrese el tamaño del producto: ");
+	    p.setTamaño(lector.readLine());
+	    System.out.println("Ingrese el precio del producto: ");
+	    String precio = lector.readLine();
+	    boolean isNumeric = precio.chars().allMatch( Character::isDigit );
+	    if(isNumeric == false) throw new FallaingresoException();
+	    else 
+	    {
+	    	int newprecio = Integer.parseInt(precio);
+	    	p.setPrecio(newprecio);
+	    }
+	    System.out.println("Ingrese el stock de producto: ");
+	    String stock = lector.readLine();
+	    isNumeric = stock.chars().allMatch( Character::isDigit );
+	    if(isNumeric == false) throw new FallaingresoException();
+	    else 
+	    {
+	    	int newstock = Integer.parseInt(precio);
+	    	p.setStock(newstock);
+	    }
+	    
+	    if(p.getCategoria().equals("alimento"))
+	    {
+	    	System.out.println("Ingrese la fecha de elaboración:");
+		    String fechaEla = lector.readLine();
+		    System.out.println("Ingrese la fecha de vencimiento:");
+		    String fechaVen = lector.readLine();
+	    	Alimentos aa = new Alimentos(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),fechaEla, fechaVen);
+		    listaAlimentos.add(aa);
+	    }
+	    if(p.getCategoria().equals("aseo"))
+	    {
+	    	System.out.println("Ingrese toxicidad:");
+		    String toxi = lector.readLine();
+	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
+		    listaAseo.add(aa);
+	    }
+	    if(p.getCategoria().equals("aseo"))
+	    {
+	    	System.out.println("Ingrese toxicidad:");
+		    String toxi = lector.readLine();
+	    	Aseo aa = new Aseo(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),toxi);
+		    listaAseo.add(aa);
+	    }
+	    if(p.getCategoria().equals("tecnologia"))
+	    {
+	    	System.out.println("(Dimensiones) Ingrese el alto:");
+	    	int alto = Integer.parseInt(lector.readLine());
+	    	System.out.println("(Dimensiones) Ingrese el ancho:");
+	    	int ancho = Integer.parseInt(lector.readLine());
+	    	System.out.println("Ingrese generacion:");
+	    	String gen = lector.readLine();
+	    
+	    	Tecnologia aa = new Tecnologia(p.getNombre(), p.getCategoria(), p.getMarca(), p.getTamaño(),p.getPrecio(),p.getStock(),alto,ancho,gen);
+		    listaTecnologia.add(aa);
+	    }
+	  
+	  }
+
+	  // Mostrar por marca los productos
+	  public void Mostrar() throws NoregistroException, IOException,FallaingresoException {
+		  
+	    boolean existe = false;
+	    BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("Opción 1. Mostrar productos de una Marca");
+	    System.out.println("Opción 2. Mostrar todos los productos");
+	    System.out.println("Ingrese número de su opción (1 o 2)");
+	    String opMostrar = lector.readLine();
+	    boolean isNumeric = opMostrar.chars().allMatch( Character::isDigit );
+	    int opmostrar;
+	    if(isNumeric == true)
+	    {
+	    	opmostrar = Integer.parseInt(opMostrar);
+	    }
+	    else throw new  FallaingresoException();
+
+	    if (opmostrar == 1) 
+	    {
+	      System.out.println("Ingrese la marca de los productos que desea mostrar: ");
+	      String marcaElegida = lector.readLine();
+	      ArrayList<Producto> listaMarcaElegida = new ArrayList<>() ;
+	      Marca m = new Marca(marcaElegida);
+	      
+	      if (mapaMarca.containsKey(marcaElegida) == true) 
+	      {   
+	        m = mapaMarca.get(marcaElegida);
+	        m.mostrarPor(listaMarcaElegida);
+	      } 
+	      else throw new NoregistroException();
+
+	    } 
+	    else 
+	    {
+	    	
+	    	if(opmostrar == 2)
+	    	{
+	    		 for (Marca m : mapaMarca.values())
+	    		 {
+	    		    System.out.println("Marca: " + m.getNombreMarca());
+	    		    m.mostrarPor();
+	    		  }
+	    	}
+	    	if(opmostrar > 2 )
+	    	{
+	    		System.out.println("Numero ingresado no valido ");
+	    		
+	    	}
+	    }
+	  }
+	  public Marca buscarMarca(String nombre)
+	  {
+		  boolean esta;
+		  Marca m = new Marca(nombre);
+		  
+		  esta = mapaMarca.containsKey(nombre);
+		  if(esta == true) 
+		  {
+			  m = mapaMarca.get(nombre);
+			  return m;
+		  }
+		  
+		  return null;
+		  
+	  }
+	  public Producto buscarProducto(String nombre, Marca mm)
+	  {
+		  Producto pp = mm.obtenerProducto(nombre); 
+		  return pp;
+		  
+	  }
+	  public void modificarProducto()throws NoregistroException, FallaingresoException, IOException
+	  {
+		  	BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  	System.out.println("Ingrese la marca de el producto a modificar");
+			String mar;
+			mar = lector.readLine();
+			Marca mm = buscarMarca(mar);
+			if(mm == null)throw new NoregistroException();
+			else
+			{
+				System.out.println("Ingrese el nombre de el producto a modificar");
+				String pr;
+				pr = lector.readLine();
+				Producto pp = buscarProducto(pr, mm);
+				if(pp == null )throw new NoregistroException();
+				else
+				{
+					int modificar; 
+					System.out.println("¿Que desea modificar?");
+					System.out.println("1.- Nombre");
+					System.out.println("2.- Categoria");
+					System.out.println("3.- Tamaño");
+					System.out.println("4.- Precio");
+					System.out.println("5.- Stock");
+					if(pp.getCategoria().equals("alimento"))
+					{
+						System.out.println("6.- Fecha de Elaboracion");
+						System.out.println("7.- Fecha de Vencimiento");
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaAlimentos.size();i++)
+						{
+							Alimentos aa = listaAlimentos.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese nueva fecha de elaboración");
+									aa.setFechaElaboracion(lector.readLine());
+								if(modificar == 7)
+									System.out.println("Ingrese nueva fecha de vencimiento");
+									aa.setFechaVencimiento(lector.readLine());	
+							}
+						}		
+						
+					}
+					if(pp.getCategoria().equals("aseo"))
+					{
+						System.out.println("6.- Toxicidad");
+					
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaAseo.size();i++)
+						{
+							Aseo aa = listaAseo.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese toxicidad");
+									aa.setToxicidad(lector.readLine());
+								
+							}
+						}	
+						return;
+					}
+					if(pp.getCategoria().equals("tecnologia"))
+					{
+						System.out.println("6.- Alto");
+						System.out.println("7.- Ancho");
+						System.out.println("8.- Generacion");
+					
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaTecnologia.size();i++)
+						{
+							Tecnologia aa = listaTecnologia.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese nueva alto de dimension");
+									aa.setAlto(Integer.parseInt(lector.readLine()));
+								if(modificar == 7) 
+									System.out.println("Ingrese nuevo ancho de dimension");
+									aa.setAncho(Integer.parseInt(lector.readLine()));
+								if(modificar == 6) 
+									System.out.println("Ingrese generacion");
+									aa.setGeneracion(lector.readLine());
+								
+							}
+						}	
+						return;
+					}
+
+					modificar = Integer.parseInt(lector.readLine());
+					if(modificar < 1 || modificar > 8) throw new FallaingresoException();
+					switch(modificar)
+					{
+						case 1:
+						{
+							System.out.println("Ingrese el nuevo Nombre: ");
+							pp.setNombre(lector.readLine());
+							return;
+						
+						}
+						case 2:
+						{
+							System.out.println("Ingrese la nueva Categoria: ");
+							pp.setCategoria(lector.readLine());
+							return;
+						
+						}
+						case 3:
+						{
+							System.out.println("Ingrese el nuevo Tamaño: ");
+							pp.setTamaño(lector.readLine());
+							return;
+						}
+						case 4:
+						{
+							System.out.println("Ingrese el nuevo Precio: ");
+							pp.setPrecio(Integer.parseInt(lector.readLine()));
+							return;
+						
+						}
+						case 5:
+						{
+							System.out.println("Ingrese el nuevo Stock: ");
+							pp.setStock(Integer.parseInt(lector.readLine()));
+							return;
+						}
+					}
+						
+				}
+			}
+	  }
+	  public void eliminarProducto()throws IOException, NoregistroException
+	  {
+		  	BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  	System.out.println("Ingrese la marca de el producto a eliminar");
+			String mar;
+			mar = lector.readLine();
+			Marca mm = buscarMarca(mar);
+			if(mm == null) throw new NoregistroException();
+			else
+			{
+				System.out.println("Ingrese el nombre de el producto a eliminar");
+				String pr;
+				pr = lector.readLine();
+				Producto pp = buscarProducto(pr, mm);
+				if(pp == null)throw new NoregistroException();
+				else
+				{
+					if(mm.getCantProductos() == 1)
+					{
+						System.out.print("Producto " + pp.getNombre());
+						System.out.println(" eliminado");
+						mm.eliminarProducto(pp);
+						mapaMarca.remove(mar);
+						
+					}
+					else mm.eliminarProducto(pp);
+					
+					
+				}
+			}	
+		  
+	  }
+	  public void filtrar()throws IOException,FallaingresoException
+	  {
+		  BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  System.out.println("Ingrese el precio referencial ");
+		  int precio = Integer.parseInt(lector.readLine());
+		  System.out.println("¿Desea ver productos menor o mayor a este precio?");
+		  System.out.println("1.- Menor | 2.- Mayor");
+		  int op = Integer.parseInt(lector.readLine());
+		  if(op < 1 || op > 2) throw new FallaingresoException();
+		  
+	  
+		  for (Marca p : mapaMarca.values())
+		  {
+			  Producto po = new Producto();
+			  for(int i = 0 ; i < p.sizeLista(); i++)
+			  {
+				  po = p.exportar(i);
+				  if(op == 1)
+				  {
+					  if(po.getPrecio() <= precio)
+					  {
+						  System.out.print("Producto:" + po.getNombre());
+						  System.out.println(", precio:" + po.getPrecio());
+						  
+					  }  
+				  }
+				  else
+				  {
+					  if(po.getPrecio() >= precio)
+					  {
+						  System.out.print("Producto:" + po.getNombre());
+						  System.out.println(", precio:" + po.getPrecio());
+						  
+					  }  
+				  }
+				  
+			  }
+		  }
+
+		  
+		  
+		  
+		  
+	  }
+	  public void reporte ()throws IOException 
+	  { 
+		  FileWriter writer = new FileWriter("reporte.txt");
+		  writer.write("Productos de cada marca" + "\n" + "\n");
+		  for (Marca p : mapaMarca.values()) {
+
+
+              writer.write(p.getNombreMarca()+ ": "  + "\n");
+              writer.write("Cantidad de productos: "+ p.sizeLista() + "\n");
+              Producto po = new Producto();
+              
+              for(int i = 0 ; i < p.sizeLista(); i++)
+              {
+                  po = p.exportar(i);
+                  String linea = i + 1 + "." + po.getNombre() +"\n";
+                  writer.write(linea);
+              }
+              writer.write("----------------------------" + "\n");
+		  }
+		  writer.close();
+		  
+	  }
+	  public void exportar()throws IOException
+      { 
+          FileWriter writer = new FileWriter("inventario.txt");
+
+          for (Marca p : mapaMarca.values()) {
+              Producto po = new Producto();
+              for(int i = 0 ; i < p.sizeLista(); i++)
+              {
+
+                  po = p.exportar(i);
+                  String linea = po.getNombre() + "," + po.getCategoria() + "," + po.getTamaño()+ "," +po.getMarca() + "," + po.getStock() + "," + po.getPrecio() + "\n";
+                  writer.write(linea);
+              }
+
+            }
+
+          writer.close();
+
+      }
+	  public void leerArchivo(String nombreArchivo)throws IOException
+		{
+	        File archivo = new File("inventario.txt");
+	        Marca guard = new Marca();
+	        
+	        
+	        try {
+	            BufferedReader entrada = new BufferedReader( new FileReader(archivo));
+	            var lectura = entrada.readLine();
+	            
+	            while(lectura != null){
+	            	Producto p = new Producto();
+	            	for(int i = 0 ; i < 6 ; i ++)
+	            	{
+	            		
+	            
+	            		ManejoDocumento mD = new ManejoDocumento();
+	            		if(i == 0)
+	            			p.setNombre(mD.get_csvField(lectura, i));
+	            		if(i == 1)
+	            			p.setCategoria(mD.get_csvField(lectura, i));
+	            		if(i == 2)
+	            			p.setTamaño(mD.get_csvField(lectura, i));
+	            		if(i == 3)
+	            			p.setMarca(mD.get_csvField(lectura, i));
+	            		if(i == 4)
+	            			p.setStock(Integer.parseInt(mD.get_csvField(lectura, i)));
+	            		if(i == 5)
+	            			p.setPrecio(Integer.parseInt(mD.get_csvField(lectura, i)));
+	            	
+	            		
+	            	}
+	            	
+	            	Marca varMarca = new Marca(p.getMarca());
+	            	
+	            	Marca marcBusc = mapaMarca.get(p.getMarca());
+	            	
+	            	if (marcBusc != null)
+	            	{
+	            		marcBusc.agregarProducto(p);
+	            	}
+	            	else
+	            	{
+	  	    	      varMarca.agregarProducto(p);
+	  	    	      mapaMarca.put(varMarca.getNombreMarca(), varMarca);
+
+		  	    	}
+	                lectura = entrada.readLine();
+	                
+	            }
+	            entrada.close();
+	        } catch (FileNotFoundException ex) {
+	            ex.printStackTrace(System.out);
+	        } catch (IOException ex) {
+	            ex.printStackTrace(System.out);
+	        }
+	    }
+	  public void mostrarAlimentos()throws IOException
+	  {
+		  for(int i = 0; i < listaAlimentos.size(); i++)
+		  {
+			  Alimentos aa = listaAlimentos.get(i);
+			  System.out.print("Nombre alimento:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.print(", Fecha de elaboracion:" +  aa.getFechaElaboracion());
+			  System.out.println(", Fecha de vencimiento:" +  aa.getFechaVencimiento());
+			  
+			  
+		  }
+		
+	  }
+	  public void mostrarAseo()throws IOException
+	  {
+		 
+		  for(int i = 0; i < listaAseo.size(); i++)
+		  {
+			  Aseo aa = listaAseo.get(i);
+			  System.out.print("Nombre artículo de aseo:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.println(", Toxicidad:" +  aa.getToxicidad());
+			    
+			  
+		  }
+		 
+	  }
+	  public void mostrarTecnologia()throws IOException
+	  {
+		 
+		  for(int i = 0; i < listaTecnologia.size(); i++)
+		  {
+			  Tecnologia aa = listaTecnologia.get(i);
+			  System.out.print("Nombre producto tecnologico:" +  aa.getNombre());
+			  System.out.print(", Marca:" +  aa.getMarca());
+			  System.out.println(", DIMENSIONES:");
+			  System.out.print("alto:" +  aa.getAlto());
+			  System.out.println(", ancho:" +  aa.getAncho());
+			  System.out.println("Generacion:" + aa.getGeneracion());
+			  
+		  }
+	  }
+	  public void buscarProducto()throws IOException,NoregistroException
+	  {
+		  
+		  BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+		  System.out.println("Ingrese la marca del producto");
+		  String marca = lector.readLine();
+		  Marca mm = buscarMarca(marca);
+		  if(mm == null)throw new  NoregistroException();
+		  System.out.println("Ingrese el nombre del producto");
+		  String nombre = lector.readLine();
+		  Producto pp = mm.obtenerProducto(nombre);
+		  if(pp == null)  throw new  NoregistroException();
+		  else
+		  {
+			  System.out.println("Nombre:" + pp.getNombre());
+			  System.out.println("Categoria:" + pp.getCategoria());
+			  System.out.println("Precio:" + pp.getPrecio());
+			  System.out.println("Stock:" + pp.getStock());
+			  
+		  }
+		  
+		 
+	  }
+	  
+		
+}

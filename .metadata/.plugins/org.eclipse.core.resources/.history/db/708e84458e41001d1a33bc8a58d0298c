@@ -1,0 +1,9 @@
+
+public class noRegistroException extends Exception {
+	
+	public noRegistroException()
+	{
+		super("El dato ingresado no se encuentra registrado");
+	}
+
+}
