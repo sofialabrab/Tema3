@@ -1,0 +1,19 @@
+Productos de cada marca
+
+apple: 
+Cantidad de productos: 2
+1.ipad
+2.iphone
+----------------------------
+nivea: 
+Cantidad de productos: 1
+1.jabon liquido
+----------------------------
+ajdja: 
+Cantidad de productos: 1
+1.ajdja
+----------------------------
+colun: 
+Cantidad de productos: 1
+1.leche chocolate
+----------------------------

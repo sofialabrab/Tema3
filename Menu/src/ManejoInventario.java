@@ -252,17 +252,89 @@ public class ManejoInventario {
 				if(pp == null )throw new NoregistroException();
 				else
 				{
+					int modificar; 
+					
+					//System.out.println("Ingrese la categoría del producto:");
+					//String cat = lector.readLine();
+					
 					System.out.println("¿Que desea modificar?");
 					System.out.println("1.- Nombre");
 					System.out.println("2.- Categoria");
 					System.out.println("3.- Tamaño");
 					System.out.println("4.- Precio");
 					System.out.println("5.- Stock");
-
+					if(pp.getCategoria().equals("alimento"))
+					{
+						System.out.println("6.- Fecha de Elaboracion");
+						System.out.println("7.- Fecha de Vencimiento");
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaAlimentos.size();i++)
+						{
+							Alimentos aa = listaAlimentos.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese nueva fecha de elaboración");
+									aa.setFechaElaboracion(lector.readLine());
+								if(modificar == 7)
+									System.out.println("Ingrese nueva fecha de vencimiento");
+									aa.setFechaVencimiento(lector.readLine());	
+							}
+						}		
+						
+					}
+					if(pp.getCategoria().equals("aseo"))
+					{
+						System.out.println("6.- Toxicidad");
 					
-					int modificar; 
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaAseo.size();i++)
+						{
+							Aseo aa = listaAseo.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese toxicidad");
+									aa.setToxicidad(lector.readLine());
+								
+							}
+						}	
+						return;
+					}
+					if(pp.getCategoria().equals("tecnologia"))
+					{
+						System.out.println("6.- Alto");
+						System.out.println("7.- Ancho");
+						System.out.println("8.- Generacion");
+					
+						modificar = Integer.parseInt(lector.readLine());
+						
+						for(int i = 0; i < listaTecnologia.size();i++)
+						{
+							Tecnologia aa = listaTecnologia.get(i);
+							if(aa.getNombre().equals(pp.getNombre()))
+							{
+								if(modificar == 6) 
+									System.out.println("Ingrese nueva alto de dimension");
+									aa.setAlto(Integer.parseInt(lector.readLine()));
+								if(modificar == 7) 
+									System.out.println("Ingrese nuevo ancho de dimension");
+									aa.setAncho(Integer.parseInt(lector.readLine()));
+								if(modificar == 6) 
+									System.out.println("Ingrese generacion");
+									aa.setGeneracion(lector.readLine());
+								
+							}
+						}	
+						return;
+					}
+
 					modificar = Integer.parseInt(lector.readLine());
-					if(modificar < 1 || modificar > 5) throw new FallaingresoException();
+					//int modificar; 
+					//modificar = Integer.parseInt(lector.readLine());
+					if(modificar < 1 || modificar > 8) throw new FallaingresoException();
 					switch(modificar)
 					{
 						case 1:
@@ -524,8 +596,6 @@ public class ManejoInventario {
 			  System.out.print("alto:" +  aa.getAlto());
 			  System.out.println(", ancho:" +  aa.getAncho());
 			  System.out.println("Generacion:" + aa.getGeneracion());
-			  
- 
 			  
 		  }
 		  System.out.println("salio for ");

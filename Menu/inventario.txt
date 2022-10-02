@@ -1,2 +1,5 @@
+ipad,tecno,234,apple,2342,2342
+iphone,tecno,2342,apple,2342,2342
 jabon liquido,aseo personal,200 ml,nivea,3,1200
+ajdja,lacteo,232,ajdja,4,233
 leche chocolate,lacteo,200 ml,colun,6,390
