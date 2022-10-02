@@ -119,7 +119,7 @@ public class ManejoInventario {
 	    if(isNumeric == false) throw new FallaingresoException();
 	    else 
 	    {
-	    	int newstock = Integer.parseInt(stock);
+	    	int newstock = Integer.parseInt(precio);
 	    	p.setStock(newstock);
 	    }
 	    

@@ -5,6 +5,9 @@ public class Menu {
 
   public static void main(String[] args) throws FallaingresoException, NoregistroException, IOException {
 
+    // ArrayList <Marca> listaMarca = new ArrayList<>();
+   // ArrayList<Producto> productos = new ArrayList<>();
+   // HashMap<String, Marca> mapaMarcas = new HashMap<>();
     ManejoInventario inv = new ManejoInventario();
     ManejoDocumento doc = new ManejoDocumento();
     
