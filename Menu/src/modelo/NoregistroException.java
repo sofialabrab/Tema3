@@ -1,3 +1,4 @@
+package modelo;
 public class NoregistroException extends Exception {
 	
 	public NoregistroException()

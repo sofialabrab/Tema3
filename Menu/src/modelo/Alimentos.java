@@ -1,3 +1,4 @@
+package modelo;
 public class Alimentos extends Producto {
 	
 	private String fechaElaboracion;

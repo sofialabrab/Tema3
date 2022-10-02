@@ -1,3 +1,4 @@
+package modelo;
 public class FallaingresoException extends Exception {
 	public FallaingresoException()
 	{

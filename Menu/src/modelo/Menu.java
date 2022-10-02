@@ -1,3 +1,4 @@
+package modelo;
 import java.io.*;
 import java.util.*;
 
@@ -5,15 +6,12 @@ public class Menu {
 
   public static void main(String[] args) throws FallaingresoException, NoregistroException, IOException {
 
-    // ArrayList <Marca> listaMarca = new ArrayList<>();
-   // ArrayList<Producto> productos = new ArrayList<>();
-   // HashMap<String, Marca> mapaMarcas = new HashMap<>();
     ManejoInventario inv = new ManejoInventario();
     ManejoDocumento doc = new ManejoDocumento();
     
 
     int opMostrar, sig = 1, ini = 0;
-   // int op = 0;
+   
     BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
     inv.leerArchivo(null);
@@ -32,13 +30,6 @@ public class Menu {
     System.out.println("8.- Cerrar");
     
     System.out.println("Seleccione una opción");
-    /*try {
-    	op = Integer.parseInt(lector.readLine());
-    }
-    catch(Exception e)
-    {
-    	System.out.println("Dato ingresado no valido");
-    }*/
 
     String op = lector.readLine();
     boolean isNumeric = op.chars().allMatch( Character::isDigit );
@@ -69,39 +60,30 @@ public class Menu {
         	{
         	case 1:
         	{
-        		System.out.println("entro");
         		inv.mostrarAlimentos();
-        		System.out.println("salio");
         		break;
         		
         	}
         	case 2:
-        	{
-        		System.out.println("entro");
+        	{	
         		inv.mostrarAseo();
-        		System.out.println("salio");
         		break;
         	}
         	case 3:
         	{
-        		System.out.println("entro");
         		inv.mostrarTecnologia();
-        		System.out.println("salio");
         		break;
         	}
         	case 4:
-        	{	System.out.println("entro");
+        	{
         		inv.Mostrar();
-    			System.out.println("salio");
     			break;
         		
         	}
         		
         		
         	}
-        	
-        	
-        
+
           break;
         }
         case 3: {
@@ -135,7 +117,13 @@ public class Menu {
         }
         case 5:
         {
-        	
+        	try {
+        		inv.buscarProducto();
+        	}catch(NoregistroException e)
+        	{
+        		System.out.println("Error:" + e.getMessage());
+        	}
+        	break;
         }
         case 6:
         {
@@ -177,8 +165,5 @@ public class Menu {
     }
     
   }
-  
-  
-
 
 }

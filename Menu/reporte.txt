@@ -5,13 +5,17 @@ Cantidad de productos: 2
 1.ipad
 2.iphone
 ----------------------------
+coca-cola: 
+Cantidad de productos: 1
+1.coca-cola
+----------------------------
 nivea: 
 Cantidad de productos: 1
 1.jabon liquido
 ----------------------------
-ajdja: 
+soprole: 
 Cantidad de productos: 1
-1.ajdja
+1.yogurth
 ----------------------------
 colun: 
 Cantidad de productos: 1

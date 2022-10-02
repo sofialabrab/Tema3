@@ -1,3 +1,4 @@
+package modelo;
 public class Tecnologia extends Producto {
 
 	private String generacion;
