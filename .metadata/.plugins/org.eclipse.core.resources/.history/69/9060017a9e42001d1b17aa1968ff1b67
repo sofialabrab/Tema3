@@ -479,7 +479,7 @@ public class ManejoInventario {
 	        
 	        try {
 	            BufferedReader entrada = new BufferedReader( new FileReader(archivo));
-	            String lectura = entrada.readLine();
+	            var lectura = entrada.readLine();
 	            
 	            while(lectura != null){
 	            	Producto p = new Producto();

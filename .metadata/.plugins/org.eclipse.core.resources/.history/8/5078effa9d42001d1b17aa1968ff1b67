@@ -10,7 +10,7 @@ public class Menu {
     
 
     int opMostrar, sig = 1, ini = 0;
-   
+   // int op = 0;
     BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
     inv.leerArchivo(null);
